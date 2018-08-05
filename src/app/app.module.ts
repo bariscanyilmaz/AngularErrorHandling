@@ -1,8 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import { NgModule, ErrorHandler } from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { PostService } from './services/post.service';
+import { ErrorHandleService } from './services/error-handle.service';
+import { GlobalErrorHandler } from './models/global-error-handler';
 
 
 @NgModule({
@@ -10,9 +13,13 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,HttpClientModule
   ],
-  providers: [],
+  providers: [
+    PostService,
+    ErrorHandleService,
+    {provide:ErrorHandler,useClass:GlobalErrorHandler}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
